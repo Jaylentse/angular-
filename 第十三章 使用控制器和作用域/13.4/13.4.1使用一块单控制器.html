@@ -1,0 +1,40 @@
+<!--修改作用域-->
+<!DOCTYPE html>
+<html lang="en" ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../bower_components/angular/angular.js"></script>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <title>Controller</title>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="well">
+    <h4>Billing Zip Code</h4>
+    <div class="form-group"><input type="text" class="form-control" ng-model="address.BillingZipCode"></div>
+    <button class="btn btn-primary" ng-click="setAddress('BillingZipCode',address.BillingZipCode)">Saving Billing</button>
+</div>
+<div class="well">
+    <h4>Shipping Zip Code</h4>
+    <div class="form-group"><input type="text" class="form-control" ng-model="address.ShippingZipCode"></div>
+    <button class="btn btn-primary" ng-click="copyAddress()">Use Billing</button>
+    <button class="btn btn-primary" ng-click="setAddress('ShippingZipCode',address.ShippingZipCode)">Save Shipping</button>
+</div>
+<script>
+    angular.module('exampleApp',[])
+            .controller('defaultCtrl',function($scope){
+                $scope.address = {};
+
+                $scope.setAddress = function(zipCodeName,zipCode){
+                    console.log('Your '+zipCodeName+' is '+zipCode);
+                    $scope.address[zipCodeName] = zipCode;
+                }
+
+                $scope.copyAddress = function(){
+                    $scope.address.ShippingZipCode = $scope.address.BillingZipCode;
+                };
+
+            });
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!--修改作用域-->
+<!DOCTYPE html>
+<html lang="en" ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../bower_components/angular/angular.js"></script>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <title>Controller</title>
+</head>
+<body>
+<div class="well" ng-controller="defaultCtrl">
+    <label>Select a city</label>
+    <select ng-options="city for city in cities" ng-model="city"></select>
+    <p>The country is is:{{getCity(city)||"unknow"}}</p>
+</div>
+<script>
+    angular.module('exampleApp',[])
+            .controller('defaultCtrl',function($scope){
+                $scope.cities = ['London','New York','Paris','GuangZhou'];
+                $scope.city = 'GuangZhou';
+                $scope.getCity = function(city){
+                    switch (city){
+                        case 'London' :return 'UK';
+                        case 'New York' :return 'USA';
+                        case 'GuangZhou' :return 'PRC';
+                    };
+                };
+            });
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!--设置作用域-->
+<!DOCTYPE html>
+<html lang="en" ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../bower_components/angular/angular.js"></script>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <title>Controller</title>
+</head>
+<body>
+    <div class="well" ng-controller="defaultCtrl">
+        <p>The city is {{city}}</p>
+        <p>The country is is:{{getCity(city)||"unknow"}}</p>
+    </div>
+    <script>
+        angular.module('exampleApp',[])
+                .controller('defaultCtrl',function($scope){
+                    $scope.city = 'London';
+                    $scope.getCity = function(city){
+                        switch (city){
+                            case 'London' :return 'UK';
+                            case 'New York' :return 'USA';
+                        };
+                    };
+                });
+    </script>
+</body>
+</html>

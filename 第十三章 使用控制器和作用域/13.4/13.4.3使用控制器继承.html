@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="exampleApp4">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="controllers.js"></script>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <title>使用控制器继承</title>
+</head>
+<body ng-controller="topLevelCtrl">
+                        <!--子控制器覆盖被继承的数据和行为-->
+ <!--<div class="well">-->
+    <!--<h4>Top Level Controller</h4>-->
+    <!--<div class="input-group">-->
+        <!--<span class="input-group-btn">-->
+            <!--<button class="btn btn-default" ng-click="reverseText()">Reverse</button>-->
+            <!--<button class="btn btn-default" ng-click="changeCase()">Case</button>-->
+        <!--</span>-->
+        <!--<input type="text" class="form-control" ng-model="dataValue">-->
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="well" ng-controller="firstChildCtrl">-->
+    <!--<h4>firstChildCtrl</h4>-->
+    <!--<div class="input-group">-->
+        <!--<span class="input-group-btn">-->
+            <!--<button class="btn btn-default" ng-click="reverseText()">Reverse</button>-->
+            <!--<button class="btn btn-default" ng-click="changeCase()">Case</button>-->
+        <!--</span>-->
+        <!--<input type="text" class="form-control" ng-model="dataValue">-->
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="well" ng-controller="secondChildCtrl">-->
+    <!--<h4>secondChildCtrl</h4>-->
+    <!--<div class="input-group">-->
+        <!--<span class="input-group-btn">-->
+            <!--<button class="btn btn-default" ng-click="reverseText()">Reverse</button>-->
+            <!--<button class="btn btn-default" ng-click="changeCase()">Case</button>-->
+            <!--<button class="btn btn-default" ng-click="shiftFour()">Shift</button>-->
+        <!--</span>-->
+        <!--<input type="text" class="form-control" ng-model="dataValue">-->
+    <!--</div>-->
+<!--</div>-->
+                        <!--子控制器不覆盖继承的数据-->
+ <div class="well">
+     <h4>Top Level Controller</h4>
+     <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default" ng-click="reverseText()">Reverse</button>
+            <button class="btn btn-default" ng-click="changeCase()">Case</button>
+        </span>
+         <input type="text" class="form-control" ng-model="data.dataValue">
+     </div>
+ </div>
+ <div class="well" ng-controller="firstChildCtrl">
+     <h4>firstChildCtrl</h4>
+     <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default" ng-click="reverseText()">Reverse</button>
+            <button class="btn btn-default" ng-click="changeCase()">Case</button>
+        </span>
+         <input type="text" class="form-control" ng-model="data.dataValue">
+     </div>
+ </div>
+ <div class="well" ng-controller="secondChildCtrl">
+     <h4>secondChildCtrl</h4>
+     <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default" ng-click="reverseText()">Reverse</button>
+            <button class="btn btn-default" ng-click="changeCase()">Case</button>
+            <button class="btn btn-default" ng-click="shiftFour()">Shift</button>
+        </span>
+         <input type="text" class="form-control" ng-model="data.dataValue">
+     </div>
+ </div>
+</body>
+</html>
