@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="exampleApp3">
 <head>
-    <meta charset="UTF-8">
-    <meta charset="UTF-8">
-    <script src="../../bower_components/angular/angular.js"></script>
-    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <title>使用服务调节作用域事件</title>
+  <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <script src="../../bower_components/angular/angular.js"></script>
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  <title>使用服务调节作用域事件</title>
 </head>
 <body>
 <div class="well" ng-controller="simpleCtrl">
-    <h4>Billing Zip Code</h4>
-    <div class="form-group"><input type="text" class="form-control" ng-model="BillingZipCode"></div>
-    <button class="btn btn-primary" ng-click="setAddress('BillingZipCode',BillingZipCode)">Saving Billing
-    </button>
+  <h4>Billing Zip Code</h4>
+  <div class="form-group"><input type="text" class="form-control" ng-model="BillingZipCode"></div>
+  <button class="btn btn-primary" ng-click="setAddress('BillingZipCode',BillingZipCode)">Saving Billing
+  </button>
 </div>
 <div class="well" ng-controller="simpleCtrl">
-    <h4>Shipping Zip Code</h4>
-    <div class="form-group"><input type="text" class="form-control" ng-model="ShippingZipCode"></div>
-    <button class="btn btn-primary" ng-click="copyAddress()">Use Billing</button>
-    <button class="btn btn-primary" ng-click="setAddress('ShippingZipCode',ShippingZipCode)">Save Shipping
-    </button>
+  <h4>Shipping Zip Code</h4>
+  <div class="form-group"><input type="text" class="form-control" ng-model="ShippingZipCode"></div>
+  <button class="btn btn-primary" ng-click="copyAddress()">Use Billing</button>
+  <button class="btn btn-primary" ng-click="setAddress('ShippingZipCode',ShippingZipCode)">Save Shipping
+  </button>
 </div>
 <script>
-    angular.module('exampleApp3',[])
-            .service('ZipCodes',function($rootScope){
-                return {
-                    setZipCode: function(type, zip){
-                        this[type] = zip;
-                        $rootScope.$broadcast('zipCodeUpdated',{
-                            type:type,zipCode:zip
-                        });
-                    }
-                };
-            })
-            .controller('simpleCtrl',function($scope, ZipCodes){
-                $scope.$on('zipCodeUpdated',function(event, args){
-                    $scope[args.type] = args.zipCode;
-
-                    $scope.setAddress = function(type, zip){
-                        ZipCodes.setZipCode(type, zip);
-                        console.log('Type '+type+' '+zip);
-                    };
-                    $scope.copyAddress = function(){
-                        $scope.ShippingZipCode = $scope.BillingZipCode;
-                    }
-                });
+  angular.module('exampleApp3', [])
+      .service('ZipCodes', function ($rootScope) {
+        return {
+          setZipCode: function (type, zip) {
+            this[type] = zip;
+            $rootScope.$broadcast('zipCodeUpdated', {
+              type: type, zipCode: zip
             });
+          }
+        };
+      })
+      .controller('simpleCtrl', function ($scope, ZipCodes) {
+        $scope.$on('zipCodeUpdated', function (event, args) {
+          $scope[args.type] = args.zipCode;
+
+          $scope.setAddress = function (type, zip) {
+            ZipCodes.setZipCode(type, zip);
+            console.log('Type ' + type + ' ' + zip);
+          };
+          $scope.copyAddress = function () {
+            $scope.ShippingZipCode = $scope.BillingZipCode;
+          }
+        });
+      });
 </script>
 </body>
 </html>
