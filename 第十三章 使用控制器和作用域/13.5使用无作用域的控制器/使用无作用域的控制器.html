@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="exampleApp5">
+<head>
+  <meta charset="UTF-8">
+  <script src="../../bower_components/angular/angular.js"></script>
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  <title>Controller</title>
+</head>
+<body>
+<div class="well">
+  <h4>Top Level Controller</h4>
+  <div class="input-group" ng-controller="sampleCtrl as ctrl">
+    <span class="input-group-btn">
+      <button class="btn btn-default" ng-click="ctrl.reverseText(ctrl.dataValue)"><!--<控制器>as<变量名>-->
+        Reverse
+      </button>
+    </span>
+    <input type="text" class="form-control" ng-model="ctrl.dataValue"></div>
+</div>
+<script>
+  var app = angular.module('exampleApp5',[]);
+  app.controller('sampleCtrl',function(){
+    this.dataValue = 'Hello, Jaylen';
+    this.reverseText = function(data){
+      this.dataValue = data.split('').reverse().join('');
+    }
+  });
+</script>
+</body>
+</html>
