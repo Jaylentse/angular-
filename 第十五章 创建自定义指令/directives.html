@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="exampleApp">
+<head>
+  <meta charset="UTF-8">
+  <script src="../bower_components/angular/angular.js"></script>
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  <title>Title</title>
+  <script>
+    angular.module('exampleApp',[])
+        .directive('unorderedList',function(){
+          return function (scope,element,attrs){
+            var data = scope[attrs["unorderedList"]];
+            var propertyName = attrs["listProperty"].split(' ')[0];
+            var propertyExpression = attrs["listProperty"].split(' ')[1];
+            if(angular.isArray(data)){
+              var listElem = angular.element("<ul>");
+              element.append(listElem);
+              for(var i=0;i<data.length;i++){
+                (function(i){
+                  var item = angular.element('<li>');
+                  listElem.append(item);
+                  var watcherFn = function(watchScope){
+                    return watchScope.$eval(propertyExpression,data[i]);
+                  }
+                  scope.$watch(watcherFn,function(newVal, oldVal){
+                    item.text(data[i][propertyName]+' price: '+newVal);
+                  })
+                })(i);
+              }
+            }
+          }
+        })
+        .controller('defaultCtrl',function($scope){
+          $scope.products = [
+            {name:'Apples',category:"Fruit",price:1.20,expiry:10},
+            {name:'Bananas',category:"Fruit",price:2.42,expiry:7},
+            {name:'Pears',category:"Fruit",price:2.02,expiry:6}
+          ];
+          $scope.incrementPrices = function(){
+            for(var i=0;i<$scope.products.length;i++){
+              $scope.products[i].price++;
+            }
+          }
+        });
+  </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>Products</h3>
+  </div>
+  <div class="panel-body">
+    <button class="btn btn-primary" ng-click="incrementPrices()"> Change Price</button>
+    <div unordered-list="products" list-property="name price|currency"></div>
+  </div>
+</div>
+</body>
+</html>
