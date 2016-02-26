@@ -1,10 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="exampleApp7">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <script src="../bower_components/angular/angular.js"></script>
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  <title>Directives</title>
+  <script>
+    angular.module('exampleApp7',[])
+        .directive('unorderedList',function(){
+          return {
+            link:function(scope, element, attrs){
+              var data = scope[attrs['unorderedList']] || attrs['listSource'];
+              var propertyExpression = attrs['listProperty'] || "price | currency";
+              if(angular.isArray(data)){
+                var listItem = angular.element("<ul>");
+                if(element[0].nodeName == '#comment'){
+                  element.parent().append(listItem);
+                }else {
+                  element.append(listItem);
+                }
+                for(var i=0;i<data.length;i++){
+                  var itemElement = angular.element("<li>")
+                      .text(scope.$eval(propertyExpression, data[i]));
+                  listItem.append(itemElement);
+                }
+              }
+            },
+            restrict: 'EACM'
+          }
+        }).controller('defaultCtrl',function($scope){
+      $scope.products = [
+        {name:'Apples',category:"Fruit",price:1.20,expiry:10},
+        {name:'Bananas',category:"Fruit",price:2.42,expiry:7},
+        {name:'Pears',category:"Fruit",price:2.02,expiry:6}
+      ];
+    });
+  </script>
 </head>
-<body>
-
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3></h3>
+  </div>
+  <!--将指令当做一个元素使用-->
+  <div class="panel-body">
+    <unordered-list list-source="products" list-property="price | currency" />
+  </div>
+  <!--将指令当做一个属性使用-->
+  <div class="panel-body">
+    <div unordered-list="products" list-property="price | currency"></div>
+  </div>
+  <!--将指令当做一个类的属性值使用-->
+  <div class="panel-body">
+    <div class="unordered-list: products" list-property="price | currency"></div>
+  </div>
+  <!--将指令当做一个注释来使用-->
+  <div class="panel-body">
+    <!--directive: unordered-list products-->
+  </div>
+</div>
 </body>
 </html>
