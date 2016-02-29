@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="exampleApp9">
+<head>
+  <meta charset="UTF-8">
+  <script src="../bower_components/angular/angular.js"></script>
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  <title>Directives</title>
+  <script type="text/ng-template" id="scopeTemplate">
+    <div class="panel-body">
+      <p>Name: {{local}}, City: {{cityFn()}}</p>
+    </div>
+  </script>
+  <script>
+    angular.module('exampleApp9',[])
+        .directive('scopeDemo',function(){
+          return{
+            template: function(){
+              return angular.element(document.querySelector('#scopeTemplate')).html();
+            },
+            scope: {
+              local: "=nameprop",
+              cityFn: "&city"
+            }
+          }
+        }).controller('defaultCtrl',function($scope){
+      $scope.data = {
+        name: "Adam",
+        defaultCity: "London"
+      };
+      $scope.getCity = function(name){
+        return name == "Adam"? $scope.data.defaultCity : "Unknown"
+      }
+    });
+  </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+  <div class="panel-body">
+    Direct Binding : <input ng-model="data.name" />
+  </div>
+  <div class="panel-body" scope-demo nameprop="data.name" city="getCity(data.name)"></div>
+</div>
+</body>
+</html>

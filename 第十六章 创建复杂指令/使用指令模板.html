@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="exampleApp7">
+<html lang="en" ng-app="exampleApp8">
 <head>
   <meta charset="UTF-8">
   <script src="../bower_components/angular/angular.js"></script>
@@ -7,20 +7,14 @@
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
   <title>Directives</title>
   <script>
-    angular.module('exampleApp7',[])
+    angular.module('exampleApp8',[])
         .directive('unorderedList',function(){
-          return function (scope, element, attrs){
-            var data = scope[attrs['unorderedList']];
-            var propertyExpression = attrs['listProperty'];
-            if(angular.isArray(data)){
-              var listElem = angular.element('<ul>');
-              element.append(listElem);
-              for(var i=0;i<data.length;i++){
-                var itemElem = angular.element('<li>')
-                    .text(scope.$eval(propertyExpression, data[i]));
-                listElem.append(itemElem);
-              }
-            }
+          return {
+            link: function(scope, element, attrs){
+             scope.data = scope[attrs['unorderedList']];
+            },
+            restrict: 'A',
+            template: "<ul><li ng-repeat='item in data'>"+"{{item.price | currency}}</li></ul>"
           }
         }).controller('defaultCtrl',function($scope){
           $scope.products = [
@@ -37,7 +31,7 @@
       <h3>Products</h3>
     </div>
     <div class="panel-body">
-      <div unordered-list="products" list-property="price | currency"></div>
+      <div unordered-list="products">This is where the list will go</div>
     </div>
   </div>
 </body>
